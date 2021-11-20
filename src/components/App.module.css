@@ -1,3 +1,14 @@
 .container {
   padding: 5%;
 }
+.allVideos {
+  display: grid;
+  grid-template-columns: 11fr 5fr;
+}
+.selectedVideo {
+  grid-column: 1/2;
+  margin-top: 0.8vh;
+}
+.listedVideos {
+  grid-column: 2/3;
+}
