@@ -11,6 +11,10 @@ const KEY = process.env.REACT_APP_API_KEY_YOUTUBE;
 class App extends React.Component {
   state = { videos: [], selectedVideo: null };
 
+  componentDidMount() {
+    this.onInputSubmit("buildings");
+  }
+
   onInputSubmit = async (input) => {
     const response = await youtube.get("/search", {
       params: {
@@ -23,24 +27,32 @@ class App extends React.Component {
     });
     console.log(response.data.items);
 
-    this.setState({ videos: response.data.items });
+    this.setState({
+      videos: response.data.items,
+      selectedVideo: response.data.items[0],
+    });
   };
 
   onVideoSelect = (video) => {
     console.log(video);
-    this.setState({selectedVideo: video})
+    this.setState({ selectedVideo: video });
   };
 
   render() {
     return (
       <div className={styles.container}>
         <SearchBar onFormSubmit={this.onInputSubmit} />
-        Showing {this.state.videos.length} videos
-        <VideoDetail video={this.state.selectedVideo} />
-        <VideoList
-          onVideoSelect={this.onVideoSelect}
-          videos={this.state.videos}
-        />
+        <div className={styles.allVideos}>
+          <div className={styles.selectedVideo}>
+            <VideoDetail video={this.state.selectedVideo} />
+          </div>
+          <div className={styles.listedVideos}>
+            <VideoList
+              onVideoSelect={this.onVideoSelect}
+              videos={this.state.videos}
+            />
+          </div>
+        </div>
       </div>
     );
   }
