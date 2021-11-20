@@ -1,5 +1,6 @@
 import React from "react";
-import SearchBar from "./SearchBar/index";
+import SearchBar from "./SearchBar/SearchBar";
+import VideoList from "./VIdeoList/VideoList";
 import youtube from "../apis/youtube";
 import styles from "./App.module.css";
 require("dotenv").config();
@@ -28,6 +29,7 @@ class App extends React.Component {
       <div className={styles.container}>
         <SearchBar onFormSubmit={this.onInputSubmit} />
         Showing {this.state.videos.length} videos
+        <VideoList videos={this.state.videos} />
       </div>
     );
   }
